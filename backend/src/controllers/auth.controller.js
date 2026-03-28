@@ -5,7 +5,7 @@ const BlacklistToken = require("../models/blacklist.model");
 
 /**
  * @name registerUserController
- * @description Register a new user, expects username, email, and password in the request body
+ * @description Register a new user, expects username, email, and password in the request body, if successful, sets a token cookie and returns user info, otherwise returns error message
  * @access Public
  */
 async function registerUserController(req, res) {
@@ -76,7 +76,7 @@ async function registerUserController(req, res) {
 
 /**
  * @name loginUserController
- * @description Login user, expects email and password in the request body
+ * @description Login user, expects email and password in the request body, if successful, sets a token cookie and returns user info, otherwise returns error message
  * @access Public
  */
 async function loginUserController(req, res) {
@@ -159,8 +159,34 @@ async function logoutUserController(req, res) {
   });
 }
 
+/**
+ * @name getMeController
+ * @description Get current logged in user details,
+ * @access Private
+ */
+async function getMeController(req, res) {
+  try {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+      message: "User details fetched successfully",
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
 module.exports = {
   registerUserController,
   loginUserController,
   logoutUserController,
+  getMeController,
 };
