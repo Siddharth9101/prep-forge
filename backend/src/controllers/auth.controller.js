@@ -111,8 +111,8 @@ async function loginUserController(req, res) {
     // Set token to cookie
     const token = jwt.sign(
       {
-        id: newUser._id,
-        username: newUser.username,
+        id: existingUser._id,
+        username: existingUser.username,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" },
