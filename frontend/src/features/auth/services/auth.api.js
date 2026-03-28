@@ -7,7 +7,7 @@ const api = axios.create({
 
 /**
  * @params {username, email, password}
- * @returns user info
+ * @returns message and user
  * @description registers new user and sets a token cookie
  */
 export async function register({ username, email, password }) {
@@ -22,7 +22,7 @@ export async function register({ username, email, password }) {
 
 /**
  * @params {email, password}
- * @returns user info
+ * @returns message, user
  * @description logs in user and sets a token cookie
  */
 export async function login({ email, password }) {
