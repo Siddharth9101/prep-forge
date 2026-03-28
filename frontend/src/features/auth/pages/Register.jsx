@@ -1,9 +1,18 @@
 import "../auth.form.scss";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { useState } from "react";
 
 const Register = () => {
-  const handleSubmit = (e) => {
+  const { loading, handleRegister } = useAuth();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await handleRegister({ username, email, password });
+    navigate("/");
   };
   return (
     <main>
@@ -18,6 +27,8 @@ const Register = () => {
               id="username"
               name="username"
               placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -28,6 +39,8 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -38,10 +51,14 @@ const Register = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button className="btn primary-btn">Register</button>
+          <button disabled={loading} className="btn primary-btn">
+            {loading ? "Loading..." : "Register"}
+          </button>
         </form>
         <p>
           Already have an account? <Link to="/login">Login</Link>
