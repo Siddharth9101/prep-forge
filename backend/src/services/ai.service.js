@@ -1,6 +1,5 @@
 const { GoogleGenAI } = require("@google/genai");
 const { z } = require("zod");
-const { zodToJsonSchema } = require("zod-to-json-schema");
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_GENAI_API_KEY,
@@ -76,8 +75,8 @@ const interviewReportSchema = z.object({
     .array(
       z.object({
         day: z
-          .string()
-          .describe("The day of the preparation plan, e.g., Day 1, Day 2, etc"),
+          .number()
+          .describe("The day of the preparation plan, e.g., 1, 2, etc"),
         focus: z
           .string()
           .describe(
@@ -105,12 +104,13 @@ async function generateInterviewReport({
     Job Description: ${jobDescription}
     Self Description: ${selfDescription}
     `;
+  console.log(zodToJsonSchema(interviewReportSchema));
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
-      responseSchema: zodToJsonSchema(interviewReportSchema),
+      responseSchema: z.toJSONSchema(interviewReportSchema),
     },
   });
 
