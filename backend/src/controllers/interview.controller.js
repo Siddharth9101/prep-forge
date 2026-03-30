@@ -61,11 +61,13 @@ async function generateInterviewReportController(req, res) {
 async function getAllInterviewReportsController(req, res) {
   try {
     const interviewReports = await InterviewReport.find({
-      where: { userId: req.user.id },
-      order: [["createdAt", "DESC"]],
-    }).select(
-      "-resume -jobDescription -selfDescription -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan",
-    );
+      userId: req.user.id,
+    })
+      .sort({ createdAt: -1 })
+      .select(
+        "-resume -jobDescription -selfDescription -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan",
+      )
+      .exec();
 
     if (interviewReports.length === 0) {
       return res.status(404).json({ message: "No interview reports found" });

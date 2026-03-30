@@ -4,11 +4,25 @@ import {
   getInterviewReportById,
 } from "../services/interview.api.js";
 import { InterviewContext } from "../interview.context.js";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useParams } from "react-router";
 
 const useInterview = () => {
   const { loading, setLoading, report, setReport, reports, setReports } =
     useContext(InterviewContext);
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchAllReports();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        fetchReportById(id);
+      }
+    })();
+  }, [id]);
 
   /**
    * @params {jobDescription, selfDescription, resumeFile}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/interview.scss";
 import useInterview from "../hooks/useInterview.jsx";
-import { useParams } from "react-router";
 
 const NAV_ITEMS = [
   {
@@ -130,16 +129,7 @@ const RoadMapDay = ({ day }) => (
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
   const [activeNav, setActiveNav] = useState("technical");
-  const { loading, report, fetchReportById } = useInterview();
-  const { id } = useParams();
-
-  useEffect(() => {
-    (async () => {
-      if (id) {
-        fetchReportById(id);
-      }
-    })();
-  }, [id]);
+  const { loading, report } = useInterview();
 
   if (loading || !report) {
     return (

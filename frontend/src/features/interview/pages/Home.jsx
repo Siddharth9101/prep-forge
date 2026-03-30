@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import useInterview from "../hooks/useInterview.jsx";
 
 const Home = () => {
-  const { loading, generateReport } = useInterview();
+  const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef(null);
@@ -21,6 +21,7 @@ const Home = () => {
     console.log("Report generated: ", data);
     navigate(`/interview/${data._id}`);
   };
+
   return (
     <main className="home-page">
       {/* Page Header */}
@@ -214,6 +215,29 @@ const Home = () => {
           </button>
         </div>
       </div>
+
+      {/* Report List */}
+      {reports && reports.length > 0 && (
+        <section className="recent-reports">
+          <h2>Recent Interview Reports</h2>
+          <ul className="report-list">
+            {reports.length > 0 &&
+              reports.map((report) => (
+                <li
+                  key={report._id}
+                  className="report-item"
+                  onClick={() => navigate(`/interview/${report._id}`)}
+                >
+                  <h3>{report.title || "Untitles Position"}</h3>
+                  <p className="report-meta">
+                    Generated on {new Date().toLocaleDateString()}
+                  </p>
+                  <p>Match Score: {report.matchScore}%</p>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 };
