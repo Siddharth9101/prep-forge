@@ -10,7 +10,6 @@ const Home = () => {
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef(null);
   const navigate = useNavigate();
-
   const handleGenerateReport = async () => {
     const resumeFile = resumeInputRef.current.files[0];
     const data = await generateReport({
