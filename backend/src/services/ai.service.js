@@ -11,6 +11,9 @@ const interviewReportSchema = z.object({
     .describe(
       "The match score between the candidate and the job description, on a scale of 0 to 100",
     ),
+  title: z
+    .string()
+    .describe("The title of the job the candidate is applying for"),
   technicalQuestions: z
     .array(
       z.object({
