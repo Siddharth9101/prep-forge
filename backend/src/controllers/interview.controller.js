@@ -53,6 +53,57 @@ async function generateInterviewReportController(req, res) {
   }
 }
 
+/**
+ * @name getAllInterviewReportsController
+ * @description gets all interview reports of the authenticated user, returns an array of interview reports
+ * @access Private
+ */
+async function getAllInterviewReportsController(req, res) {
+  try {
+    const interviewReports = await InterviewReport.find({
+      where: { userId: req.user.id },
+      order: [["createdAt", "DESC"]],
+    }).select(
+      "-resume -jobDescription -selfDescription -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan",
+    );
+
+    if (interviewReports.length === 0) {
+      return res.status(404).json({ message: "No interview reports found" });
+    }
+
+    res.status(200).json({ interviewReports });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server error" });
+  }
+}
+
+/**
+ * @name getInterviewReportByIdController
+ * @description gets a specific interview report by its ID, returns the interview report
+ * @access Private
+ */
+async function getInterviewReportByIdController(req, res) {
+  try {
+    const { id } = req.params;
+
+    const interviewReport = await InterviewReport.findOne({
+      where: { _id: id, userId: req.user.id },
+    });
+
+    if (!interviewReport) {
+      return res.status(404).json({ message: "Interview report not found" });
+    }
+
+    res.status(200).json({ interviewReport });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server error" });
+  }
+}
+
 module.exports = {
   generateInterviewReportController,
+  getAllInterviewReportsController,
+  getInterviewReportByIdController,
 };
