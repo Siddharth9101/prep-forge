@@ -44,7 +44,7 @@ interviewRouter.get(
  * @description Generate a resume PDF for a specific interview report
  * @access Private
  */
-interviewRouter.post(
+interviewRouter.get(
   "/resume/pdf/:interviewReportId",
   authMiddleware.authUserMW,
   interviewController.generateResumePdfController,

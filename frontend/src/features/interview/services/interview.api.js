@@ -59,3 +59,20 @@ export const getAllInterviewReports = async () => {
     console.log(err);
   }
 };
+
+/**
+ * @params {interviewReportId}
+ * @returns  PDF file
+ * @description generates a PDF resume based on the interview report ID
+ */
+export const generateResumePdf = async ({ interviewReportId }) => {
+  try {
+    const response = await api.get(`/resume/pdf/${interviewReportId}`, {
+      responseType: "blob",
+    });
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

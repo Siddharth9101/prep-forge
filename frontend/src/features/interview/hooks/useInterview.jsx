@@ -2,6 +2,7 @@ import {
   generateInterviewReport,
   getAllInterviewReports,
   getInterviewReportById,
+  generateResumePdf,
 } from "../services/interview.api.js";
 import { InterviewContext } from "../interview.context.js";
 import { useContext, useEffect } from "react";
@@ -87,6 +88,31 @@ const useInterview = () => {
     return response.interviewReport;
   };
 
+  /**
+   * @params {interviewReportId}
+   * @description Generates a PDF of the resume associated with a specific interview report ID and triggers a download of the generated PDF file.
+   */
+  const getResumePdf = async (interviewReportId) => {
+    setLoading(true);
+    let response = null;
+    try {
+      response = await generateResumePdf({ interviewReportId });
+      const url = window.URL.createObjectURL(
+        new Blob([response], { type: "application/pdf" }),
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `resume_${interviewReportId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     loading,
     report,
@@ -94,6 +120,7 @@ const useInterview = () => {
     generateReport,
     fetchAllReports,
     fetchReportById,
+    getResumePdf,
   };
 };
 
