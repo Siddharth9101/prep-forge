@@ -1,6 +1,26 @@
 import "../styles/home.scss";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router";
+
+import useInterview from "../hooks/useInterview.jsx";
 
 const Home = () => {
+  const { loading, generateReport } = useInterview();
+  const [jobDescription, setJobDescription] = useState("");
+  const [selfDescription, setSelfDescription] = useState("");
+  const resumeInputRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleGenerateReport = async () => {
+    const resumeFile = resumeInputRef.current.files[0];
+    const data = await generateReport({
+      jobDescription,
+      selfDescription,
+      resumeFile,
+    });
+    console.log("Report generated: ", data);
+    navigate(`/interview/${data._id}`);
+  };
   return (
     <main className="home-page">
       {/* Page Header */}
@@ -40,6 +60,8 @@ const Home = () => {
               <span className="badge badge--required">Required</span>
             </div>
             <textarea
+              onChange={(e) => setJobDescription(e.target.value)}
+              value={jobDescription}
               className="panel__textarea"
               placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
               maxLength={5000}
@@ -105,7 +127,8 @@ const Home = () => {
                   type="file"
                   id="resume"
                   name="resume"
-                  accept=".pdf,.docx"
+                  accept=".pdf"
+                  ref={resumeInputRef}
                 />
               </label>
             </div>
@@ -125,6 +148,8 @@ const Home = () => {
                 name="selfDescription"
                 className="panel__textarea panel__textarea--short"
                 placeholder="Briefly describe your experience, key skills, and years of experience if you don't have a resume handy..."
+                value={selfDescription}
+                onChange={(e) => setSelfDescription(e.target.value)}
               />
             </div>
 
@@ -171,7 +196,11 @@ const Home = () => {
           <span className="footer-info">
             AI-Powered Strategy Generation &bull; Approx 30s
           </span>
-          <button className="generate-btn">
+          <button
+            className="generate-btn"
+            disabled={loading}
+            onClick={handleGenerateReport}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -181,7 +210,7 @@ const Home = () => {
             >
               <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
             </svg>
-            Generate My Interview Strategy
+            {loading ? "Generating..." : "Generate My Interview Strategy"}
           </button>
         </div>
       </div>

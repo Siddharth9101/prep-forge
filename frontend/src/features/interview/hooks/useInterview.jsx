@@ -20,8 +20,9 @@ const useInterview = () => {
     resumeFile,
   }) => {
     setLoading(true);
+    let response = null;
     try {
-      const response = await generateInterviewReport({
+      response = await generateInterviewReport({
         jobDescription,
         selfDescription,
         resumeFile,
@@ -32,6 +33,7 @@ const useInterview = () => {
     } finally {
       setLoading(false);
     }
+    return response.interviewReport;
   };
 
   /**
@@ -39,14 +41,17 @@ const useInterview = () => {
    */
   const fetchAllReports = async () => {
     setLoading(true);
+    let response = null;
     try {
-      const response = await getAllInterviewReports();
+      response = await getAllInterviewReports();
       setReports(response.interviewReports);
+      return response.interviewReports;
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
+    return response.interviewReports;
   };
 
   /**
@@ -55,14 +60,17 @@ const useInterview = () => {
    */
   const fetchReportById = async (reportId) => {
     setLoading(true);
+    let response = null;
     try {
-      const response = await getInterviewReportById(reportId);
+      response = await getInterviewReportById(reportId);
       setReport(response.interviewReport);
+      return response.interviewReport;
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
+    return response.interviewReport;
   };
 
   return {

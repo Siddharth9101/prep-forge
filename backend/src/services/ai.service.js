@@ -107,7 +107,6 @@ async function generateInterviewReport({
     Job Description: ${jobDescription}
     Self Description: ${selfDescription}
     `;
-  console.log(zodToJsonSchema(interviewReportSchema));
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: prompt,

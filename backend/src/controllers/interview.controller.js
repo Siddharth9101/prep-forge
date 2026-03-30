@@ -87,9 +87,7 @@ async function getInterviewReportByIdController(req, res) {
   try {
     const { id } = req.params;
 
-    const interviewReport = await InterviewReport.findOne({
-      where: { _id: id, userId: req.user.id },
-    });
+    const interviewReport = await InterviewReport.findById(id);
 
     if (!interviewReport) {
       return res.status(404).json({ message: "Interview report not found" });
