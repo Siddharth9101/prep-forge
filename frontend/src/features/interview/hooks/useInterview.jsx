@@ -63,7 +63,6 @@ const useInterview = () => {
       setReports(response.interviewReports);
     } catch (err) {
       console.log(err);
-      toast.error("Failed to fetch interview reports. Please try again.");
     } finally {
       setLoading(false);
     }

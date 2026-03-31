@@ -16,13 +16,8 @@ const Home = () => {
   const handleGenerateReport = async () => {
     const resumeFile = resumeInputRef.current.files[0];
 
-    if (!jobDescription.trim()) {
-      toast.error("Job description is required to generate a report.");
-      return;
-    }
-
-    if (!resumeFile && !selfDescription.trim()) {
-      toast.error("Please provide either a resume or a self-description.");
+    if (!jobDescription.trim() || !resumeFile || !selfDescription.trim()) {
+      toast.error("All fields are required.");
       return;
     }
 
@@ -156,11 +151,6 @@ const Home = () => {
                 </label>
               </div>
 
-              {/* OR Divider */}
-              <div className="or-divider">
-                <span>OR</span>
-              </div>
-
               {/* Quick Self-Description */}
               <div className="self-description">
                 <label className="section-label" htmlFor="selfDescription">
@@ -174,42 +164,6 @@ const Home = () => {
                   value={selfDescription}
                   onChange={(e) => setSelfDescription(e.target.value)}
                 />
-              </div>
-
-              {/* Info Box */}
-              <div className="info-box">
-                <span className="info-box__icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <line
-                      x1="12"
-                      y1="8"
-                      x2="12"
-                      y2="12"
-                      stroke="#1a1f27"
-                      strokeWidth="2"
-                    />
-                    <line
-                      x1="12"
-                      y1="16"
-                      x2="12.01"
-                      y2="16"
-                      stroke="#1a1f27"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                </span>
-                <p>
-                  Either a <strong>Resume</strong> or a{" "}
-                  <strong>Self Description</strong> is required to generate a
-                  personalized plan.
-                </p>
               </div>
             </div>
           </div>
