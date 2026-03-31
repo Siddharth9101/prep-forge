@@ -94,8 +94,7 @@ const useInterview = () => {
     try {
       const response = await generateResumePdf({ interviewReportId });
       if (!response || response.byteLength === 0) {
-        toast.error("Failed to generate resume PDF. Please try again.");
-        return;
+        throw new Error("Received empty PDF data");
       }
       const blob = new Blob([response], { type: "application/pdf" });
       url = window.URL.createObjectURL(blob);
