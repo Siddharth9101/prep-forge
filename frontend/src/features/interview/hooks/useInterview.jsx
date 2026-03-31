@@ -123,7 +123,6 @@ const useInterview = () => {
     fetchAllReports,
     fetchReportById,
     getResumePdf,
-    customMessage,
   };
 };
 
