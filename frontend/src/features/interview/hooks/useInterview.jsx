@@ -6,12 +6,14 @@ import {
 } from "../services/interview.api.js";
 import { InterviewContext } from "../interview.context.js";
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import toast from "react-hot-toast";
 
 const useInterview = () => {
   const { loading, setLoading, report, setReport, reports, setReports } =
     useContext(InterviewContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllReports();
@@ -35,20 +37,20 @@ const useInterview = () => {
     resumeFile,
   }) => {
     setLoading(true);
-    let response = null;
     try {
-      response = await generateInterviewReport({
+      const response = await generateInterviewReport({
         jobDescription,
         selfDescription,
         resumeFile,
       });
       setReport(response.interviewReport);
+      navigate(`/interview/${response.interviewReport._id}`);
     } catch (err) {
       console.log(err);
+      toast.error("Failed to generate interview report. Please try again.");
     } finally {
       setLoading(false);
     }
-    return response.interviewReport;
   };
 
   /**
@@ -56,17 +58,15 @@ const useInterview = () => {
    */
   const fetchAllReports = async () => {
     setLoading(true);
-    let response = null;
     try {
-      response = await getAllInterviewReports();
+      const response = await getAllInterviewReports();
       setReports(response.interviewReports);
-      return response.interviewReports;
     } catch (err) {
       console.log(err);
+      toast.error("Failed to fetch interview reports. Please try again.");
     } finally {
       setLoading(false);
     }
-    return response.interviewReports;
   };
 
   /**
@@ -75,17 +75,15 @@ const useInterview = () => {
    */
   const fetchReportById = async (reportId) => {
     setLoading(true);
-    let response = null;
     try {
-      response = await getInterviewReportById(reportId);
+      const response = await getInterviewReportById(reportId);
       setReport(response.interviewReport);
-      return response.interviewReport;
     } catch (err) {
       console.log(err);
+      toast.error("Failed to fetch interview report. Please try again.");
     } finally {
       setLoading(false);
     }
-    return response.interviewReport;
   };
 
   /**
@@ -94,9 +92,12 @@ const useInterview = () => {
    */
   const getResumePdf = async (interviewReportId) => {
     setLoading(true);
-    let response = null;
     try {
-      response = await generateResumePdf({ interviewReportId });
+      const response = await generateResumePdf({ interviewReportId });
+      if (!response) {
+        toast.error("Failed to generate resume PDF. Please try again.");
+        return;
+      }
       const url = window.URL.createObjectURL(
         new Blob([response], { type: "application/pdf" }),
       );
@@ -109,6 +110,7 @@ const useInterview = () => {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.log(err);
+      toast.error("Failed to generate resume PDF. Please try again.");
     } finally {
       setLoading(false);
     }

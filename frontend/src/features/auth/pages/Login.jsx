@@ -1,18 +1,25 @@
 import "../auth.form.scss";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useAuth } from "../hooks/useAuth.jsx";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { loading, handleLogin } = useAuth();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await handleLogin({ email, password });
-    navigate("/");
+    if (!email || !password) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+    handleLogin({ email, password });
   };
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
   return (
     <main>
       <div className="form-container">
@@ -44,7 +51,7 @@ const Login = () => {
           </div>
 
           <button disabled={loading} className="btn primary-btn">
-            {loading ? "Loading..." : "Login"}
+            Login
           </button>
         </form>
         <p>

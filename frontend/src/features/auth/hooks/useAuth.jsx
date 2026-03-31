@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../auth.context.js";
 import { register, login, logout } from "../services/auth.api.js";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { user, setUser, loading, setLoading } = context;
 
@@ -15,9 +18,16 @@ export const useAuth = () => {
     setLoading(true);
     try {
       const data = await login({ email, password });
+      if (!data.user) {
+        throw new Error();
+      }
       setUser(data.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
+      toast.error(
+        err.response?.data?.message || "Failed to login, please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -31,9 +41,16 @@ export const useAuth = () => {
     setLoading(true);
     try {
       const data = await register({ username, email, password });
+      if (!data.user) {
+        throw new Error();
+      }
       setUser(data.user);
+      navigate("/");
     } catch (err) {
       console.log(err);
+      toast.error(
+        err.response?.data?.message || "Failed to register, please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -49,6 +66,9 @@ export const useAuth = () => {
       setUser(null);
     } catch (err) {
       console.log(err);
+      toast.error(
+        err.response?.data?.message || "Failed to logout, please try again.",
+      );
     } finally {
       setLoading(false);
     }

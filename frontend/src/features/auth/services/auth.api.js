@@ -11,13 +11,9 @@ const api = axios.create({
  * @description registers new user and sets a token cookie
  */
 export async function register({ username, email, password }) {
-  try {
-    const response = await api.post("/register", { username, email, password });
+  const response = await api.post("/register", { username, email, password });
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
 }
 
 /**
@@ -26,36 +22,24 @@ export async function register({ username, email, password }) {
  * @description logs in user and sets a token cookie
  */
 export async function login({ email, password }) {
-  try {
-    const response = await api.post("/login", { email, password });
+  const response = await api.post("/login", { email, password });
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
 }
 
 /**
  * @description logs out user, clears token cookie
  */
 export async function logout() {
-  try {
-    const response = await api.get("/logout");
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  const response = await api.get("/logout");
+  return response.data;
 }
 
 /**
  * @description returns current logged in user's info
  */
 export async function getMe() {
-  try {
-    const response = await api.get("/get-me");
+  const response = await api.get("/get-me");
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
 }

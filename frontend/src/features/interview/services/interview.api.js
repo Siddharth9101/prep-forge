@@ -15,22 +15,18 @@ export const generateInterviewReport = async ({
   selfDescription,
   resumeFile,
 }) => {
-  try {
-    const formData = new FormData();
-    formData.append("jobDescription", jobDescription);
-    formData.append("selfDescription", selfDescription);
-    formData.append("resume", resumeFile);
+  const formData = new FormData();
+  formData.append("jobDescription", jobDescription);
+  formData.append("selfDescription", selfDescription);
+  formData.append("resume", resumeFile);
 
-    const response = await api.post("/", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+  const response = await api.post("/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
 };
 
 /**
@@ -39,12 +35,8 @@ export const generateInterviewReport = async ({
  * @description retrieves an interview report by its ID
  */
 export const getInterviewReportById = async (id) => {
-  try {
-    const response = await api.get(`/${id}`);
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  const response = await api.get(`/${id}`);
+  return response.data;
 };
 
 /**
@@ -52,12 +44,8 @@ export const getInterviewReportById = async (id) => {
  * @description retrieves all interview reports
  */
 export const getAllInterviewReports = async () => {
-  try {
-    const response = await api.get(`/`);
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  const response = await api.get(`/`);
+  return response.data;
 };
 
 /**
@@ -66,13 +54,9 @@ export const getAllInterviewReports = async () => {
  * @description generates a PDF resume based on the interview report ID
  */
 export const generateResumePdf = async ({ interviewReportId }) => {
-  try {
-    const response = await api.get(`/resume/pdf/${interviewReportId}`, {
-      responseType: "blob",
-    });
+  const response = await api.get(`/resume/pdf/${interviewReportId}`, {
+    responseType: "blob",
+  });
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
 };
