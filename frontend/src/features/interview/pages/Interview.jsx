@@ -134,7 +134,7 @@ const Interview = () => {
   const { loading, report, getResumePdf } = useInterview();
   const { id } = useParams();
 
-  if (loading) {
+  if (loading || !report) {
     return (
       <main className="loading-container">
         <img src="/loading-hand.webp" alt="loading" />
