@@ -1,0 +1,154 @@
+@use "sass:color";
+
+// ── Variables ────────────────────────────────────────────────────────────────
+$bg-page: #0d1117;
+$bg-card: #161b22;
+$bg-panel: #1c2230;
+$bg-input: #1e2535;
+$border-color: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$accent: #ff2d78;
+$accent-alt: #ff6b9d;
+$font-stack:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+
+// ── Navbar ────────────────────────────────────────────────────────────────────
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: $bg-card;
+  border-bottom: 1px solid $border-color;
+  font-family: $font-stack;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 640px) {
+    padding: 1.25rem 2rem;
+  }
+
+  @media (min-width: 1025px) {
+    padding: 1.5rem 2.5rem;
+  }
+
+  // ── Logo Container ────────────────────────────────────────────────────────
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $text-primary;
+      background: linear-gradient(135deg, $accent 0%, $accent-alt 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @media (min-width: 640px) {
+        font-size: 1.5rem;
+      }
+
+      @media (min-width: 1025px) {
+        font-size: 1.75rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.65rem;
+      color: $text-muted;
+      font-weight: 500;
+
+      @media (min-width: 640px) {
+        font-size: 0.7rem;
+      }
+
+      @media (min-width: 1025px) {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  // ── Button Container ──────────────────────────────────────────────────────
+  > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    @media (min-width: 640px) {
+      gap: 1rem;
+    }
+
+    @media (min-width: 1025px) {
+      gap: 1.25rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.5rem;
+      font-family: $font-stack;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      @media (min-width: 640px) {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.8rem;
+      }
+
+      @media (min-width: 1025px) {
+        padding: 0.75rem 1.6rem;
+        font-size: 0.85rem;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      // ── Logout Button (Primary) ───────────────────────────────────────────
+      &:last-child {
+        background: linear-gradient(
+          135deg,
+          $accent 0%,
+          color.adjust($accent, $lightness: -10%) 100%
+        );
+        color: #fff;
+        box-shadow: 0 4px 12px rgba($accent, 0.25);
+
+        &:hover {
+          box-shadow: 0 6px 16px rgba($accent, 0.35);
+          opacity: 0.95;
+        }
+
+        &:active {
+          box-shadow: 0 2px 8px rgba($accent, 0.2);
+          opacity: 0.9;
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
