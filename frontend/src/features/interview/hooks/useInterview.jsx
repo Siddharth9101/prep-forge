@@ -93,24 +93,28 @@ const useInterview = () => {
     setLoading(true);
     try {
       const response = await generateResumePdf({ interviewReportId });
-      if (!response) {
+      if (!response || response.byteLength === 0) {
         toast.error("Failed to generate resume PDF. Please try again.");
         return;
       }
-      const url = window.URL.createObjectURL(
-        new Blob([response], { type: "application/pdf" }),
-      );
+      const blob = new Blob([response], { type: "application/pdf" });
+      url = window.URL.createObjectURL(blob);
+
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `resume_${interviewReportId}.pdf`);
+      link.setAttribute(
+        "download",
+        `resume_${interviewReportId}_${Date.now()}.pdf`,
+      );
+
       document.body.appendChild(link);
       link.click();
       link.remove();
-      window.URL.revokeObjectURL(url);
     } catch (err) {
       console.log(err);
       toast.error("Failed to generate resume PDF. Please try again.");
     } finally {
+      if (url) window.URL.revokeObjectURL(url);
       setLoading(false);
     }
   };
