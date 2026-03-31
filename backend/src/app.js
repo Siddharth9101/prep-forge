@@ -12,6 +12,7 @@ app.use(
     credentials: true,
   }),
 );
+app.use(express.static("dist"));
 
 // route imports
 const authRouter = require("./routes/auth.routes");
