@@ -1,5 +1,5 @@
 {
-  "name": "genai-resume-app-backend",
+  "name": "prep-forge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,7 +12,9 @@
     "resume",
     "genai",
     "ai",
-    "analysis"
+    "analysis",
+    "preparation",
+    "forge"
   ],
   "author": "Siddharth Saxena <siddharthsaxena9101@gmail.com>",
   "license": "ISC",
