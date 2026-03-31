@@ -32,8 +32,16 @@ $font-stack:
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 1.5rem;
+  padding: 1.5rem 1rem;
   gap: 2rem;
+
+  @media (min-width: 640px) {
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 769px) {
+    padding: 3rem 1.5rem;
+  }
 }
 
 // ── Page Header ──────────────────────────────────────────────────────────────
@@ -41,18 +49,30 @@ $font-stack:
   text-align: center;
 
   h1 {
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: $text-primary;
+
+    @media (min-width: 640px) {
+      font-size: 1.875rem;
+    }
+
+    @media (min-width: 769px) {
+      font-size: 2.25rem;
+    }
   }
 
   p {
     color: $text-muted;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     max-width: 480px;
     margin: 0 auto;
     line-height: 1.6;
+
+    @media (min-width: 640px) {
+      font-size: 0.95rem;
+    }
   }
 
   .highlight {
@@ -71,28 +91,50 @@ $font-stack:
 
   &__body {
     display: flex;
+    flex-direction: column;
     min-height: 520px;
+
+    @media (min-width: 769px) {
+      flex-direction: row;
+    }
   }
 
   &__footer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: space-between;
     padding: 1rem 1.5rem;
     border-top: 1px solid $border-color;
+    gap: 1rem;
+
+    @media (min-width: 769px) {
+      flex-direction: row;
+    }
 
     .footer-info {
       font-size: 0.8rem;
       color: $text-muted;
+      text-align: center;
+
+      @media (min-width: 769px) {
+        text-align: left;
+      }
     }
   }
 }
 
 // ── Panels ────────────────────────────────────────────────────────────────────
 .panel-divider {
-  width: 1px;
+  width: 100%;
+  height: 1px;
   background-color: $border-color;
   flex-shrink: 0;
+
+  @media (min-width: 769px) {
+    width: 1px;
+    height: auto;
+  }
 }
 
 .panel {
@@ -100,19 +142,32 @@ $font-stack:
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 1rem 1rem;
+
+  @media (min-width: 640px) {
+    padding: 1.25rem 1.25rem;
+  }
+
+  @media (min-width: 769px) {
+    padding: 1.5rem;
+  }
 
   &__header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.25rem;
+    flex-wrap: wrap;
 
     h2 {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: $text-primary;
       flex: 1;
+
+      @media (min-width: 640px) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -131,11 +186,15 @@ $font-stack:
     padding: 0.75rem 1rem;
     color: $text-primary;
     font-family: $font-stack;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     resize: none;
     outline: none;
     transition: border-color 0.2s;
     line-height: 1.5;
+
+    @media (min-width: 640px) {
+      font-size: 0.875rem;
+    }
 
     &::placeholder {
       color: $text-muted;
@@ -157,9 +216,17 @@ $font-stack:
     .char-counter {
       position: absolute;
       bottom: 2.25rem;
-      right: 2rem;
+      right: 1rem;
       font-size: 0.75rem;
       color: $text-muted;
+
+      @media (min-width: 640px) {
+        right: 1.25rem;
+      }
+
+      @media (min-width: 769px) {
+        right: 2rem;
+      }
     }
   }
 
@@ -170,12 +237,23 @@ $font-stack:
 
 // ── Badges ────────────────────────────────────────────────────────────────────
 .badge {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  padding: 0.15rem 0.5rem;
+  padding: 0.12rem 0.4rem;
   border-radius: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  white-space: nowrap;
+
+  @media (min-width: 640px) {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  @media (min-width: 769px) {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+  }
 
   &--required {
     background-color: rgba($badge-required, 0.15);
@@ -195,10 +273,15 @@ $font-stack:
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: $text-primary;
   margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+
+  @media (min-width: 640px) {
+    font-size: 0.875rem;
+  }
 }
 
 // ── Dropzone ──────────────────────────────────────────────────────────────────
@@ -214,7 +297,7 @@ $font-stack:
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem;
   background-color: $bg-input;
   border: 2px dashed $border-color;
   border-radius: 0.6rem;
@@ -222,6 +305,10 @@ $font-stack:
   transition:
     border-color 0.2s,
     background-color 0.2s;
+
+  @media (min-width: 769px) {
+    padding: 1.5rem 1rem;
+  }
 
   &:hover {
     border-color: $accent;
@@ -231,19 +318,34 @@ $font-stack:
   &__icon {
     color: $accent;
     margin-bottom: 0.25rem;
+    width: 24px;
+    height: 24px;
+
+    @media (min-width: 769px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &__title {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: $text-primary;
     margin: 0;
+
+    @media (min-width: 640px) {
+      font-size: 0.875rem;
+    }
   }
 
   &__subtitle {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: $text-muted;
     margin: 0;
+
+    @media (min-width: 640px) {
+      font-size: 0.75rem;
+    }
   }
 }
 
@@ -253,7 +355,11 @@ $font-stack:
   align-items: center;
   gap: 0.75rem;
   color: $text-muted;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+
+  @media (min-width: 640px) {
+    font-size: 0.75rem;
+  }
 
   &::before,
   &::after {
@@ -285,17 +391,27 @@ $font-stack:
   border: 1px solid $info-border;
   border-radius: 0.5rem;
 
+  @media (min-width: 640px) {
+    padding: 0.75rem 1rem;
+  }
+
   &__icon {
     flex-shrink: 0;
     color: #4a90e2;
     margin-top: 1px;
+    width: 16px;
+    height: 16px;
   }
 
   p {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #8ab4f8;
     line-height: 1.5;
+
+    @media (min-width: 640px) {
+      font-size: 0.8rem;
+    }
 
     strong {
       color: $text-primary;
@@ -307,11 +423,12 @@ $font-stack:
 .generate-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, $accent 0%, darken($accent, 10%) 100%);
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   border: none;
   border-radius: 0.5rem;
@@ -320,6 +437,12 @@ $font-stack:
     opacity 0.2s,
     transform 0.1s;
   font-family: $font-stack;
+  width: 100%;
+
+  @media (min-width: 769px) {
+    width: auto;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     opacity: 0.9;
@@ -327,6 +450,11 @@ $font-stack:
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
@@ -337,38 +465,14 @@ $font-stack:
   width: 100%;
   max-width: 900px;
 
-  .reports-list {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
 
-    .report-item {
-      background-color: $bg-card;
-      border: 1px solid $border-color;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      cursor: pointer;
-      flex-shrink: 0;
-
-      .match-score {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: $accent;
-        align-items: flex-start;
-      }
+    @media (max-width: 640px) {
+      font-size: 1rem;
     }
   }
-}
-
-.recent-reports {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 900px;
 
   .report-list {
     display: flex;
@@ -387,6 +491,37 @@ $font-stack:
       cursor: pointer;
       max-width: fit-content;
       flex-shrink: 0;
+      min-width: 250px;
+
+      @media (max-width: 768px) {
+        min-width: 200px;
+        flex: 1;
+      }
+
+      @media (max-width: 480px) {
+        min-width: 100%;
+        flex: 1;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 0.95rem;
+
+        @media (max-width: 640px) {
+          font-size: 0.85rem;
+        }
+      }
+
+      .report-meta {
+        margin: 0;
+        font-size: 0.75rem;
+        color: $text-muted;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.8rem;
+      }
 
       .match-score {
         font-size: 0.8rem;
