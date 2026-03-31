@@ -18,7 +18,11 @@ const Login = () => {
   };
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <main className="loading-container">
+        <span>Logging you in...</span>
+      </main>
+    );
   }
   return (
     <main>

@@ -19,7 +19,11 @@ const Register = () => {
   };
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <main className="loading-container">
+        <span>Signing in...</span>
+      </main>
+    );
   }
   return (
     <main>

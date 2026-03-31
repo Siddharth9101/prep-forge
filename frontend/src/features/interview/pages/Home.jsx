@@ -7,11 +7,12 @@ import useInterview from "../hooks/useInterview.jsx";
 import Navbar from "../components/Navbar.jsx";
 
 const Home = () => {
-  const { loading, generateReport, reports } = useInterview();
+  const { loading, generateReport, reports, customMessage } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef(null);
   const navigate = useNavigate();
+
   const handleGenerateReport = async () => {
     const resumeFile = resumeInputRef.current.files[0];
 
@@ -31,6 +32,15 @@ const Home = () => {
       resumeFile,
     });
   };
+
+  if (loading) {
+    return (
+      <main className="loading-container">
+        <img src="/loading-hand.webp" alt="loading" />
+        <span>{customMessage}</span>
+      </main>
+    );
+  }
 
   return (
     <>

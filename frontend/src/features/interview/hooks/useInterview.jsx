@@ -5,7 +5,7 @@ import {
   generateResumePdf,
 } from "../services/interview.api.js";
 import { InterviewContext } from "../interview.context.js";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 
@@ -14,6 +14,7 @@ const useInterview = () => {
     useContext(InterviewContext);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [customMessage, setCustomMessage] = useState("");
 
   useEffect(() => {
     fetchAllReports();
@@ -36,6 +37,7 @@ const useInterview = () => {
     selfDescription,
     resumeFile,
   }) => {
+    setCustomMessage("Sit back and relax while we analyze your resume...");
     setLoading(true);
     try {
       const response = await generateInterviewReport({
@@ -92,6 +94,7 @@ const useInterview = () => {
    */
   const getResumePdf = async (interviewReportId) => {
     setLoading(true);
+    setCustomMessage("Sit back and relax while we generate your resume PDF...");
     try {
       const response = await generateResumePdf({ interviewReportId });
       if (!response) {
@@ -123,6 +126,7 @@ const useInterview = () => {
     fetchAllReports,
     fetchReportById,
     getResumePdf,
+    customMessage,
   };
 };
 
