@@ -128,6 +128,15 @@ const RoadMapDay = ({ day }) => (
   </div>
 );
 
+if (loading) {
+  return (
+    <main className="loading-container">
+      <img src="/loading-hand.webp" alt="loading" />
+      <span>Sit back and relax while we generate your resume PDF...</span>
+    </main>
+  );
+}
+
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
   const [activeNav, setActiveNav] = useState("technical");

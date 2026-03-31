@@ -7,7 +7,7 @@ import useInterview from "../hooks/useInterview.jsx";
 import Navbar from "../components/Navbar.jsx";
 
 const Home = () => {
-  const { loading, generateReport, reports, customMessage } = useInterview();
+  const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef(null);
@@ -37,7 +37,7 @@ const Home = () => {
     return (
       <main className="loading-container">
         <img src="/loading-hand.webp" alt="loading" />
-        <span>{customMessage}</span>
+        <span>Sit back and relax while we analyze your resume...</span>
       </main>
     );
   }
