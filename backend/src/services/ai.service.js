@@ -114,7 +114,7 @@ async function generateInterviewReport({
     Self Description: ${selfDescription}
     `;
   const response = await ai.models.generateContent({
-    model: "gemini-1.5-flash",
+    model: "gemini-2.5-flash",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
@@ -181,7 +181,7 @@ async function generateResumePdf({ resume, jobDescription, selfDescription }) {
 
   const response = await withTimeout(
     ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
