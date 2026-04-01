@@ -91,6 +91,7 @@ const useInterview = () => {
    */
   const getResumePdf = async (interviewReportId) => {
     setLoading(true);
+    let url = null;
     try {
       const response = await generateResumePdf({ interviewReportId });
       if (!response || response.byteLength === 0) {
