@@ -130,7 +130,7 @@ async function generateResumePdfController(req, res) {
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename=resume_${interviewReportId}.pdf`,
+      "Content-Disposition": `attachment; filename=resume_${interviewReportId}_${Date.now()}.pdf`,
     });
 
     res.send(pdfBuffer);
