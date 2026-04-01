@@ -1,4 +1,4 @@
-FROM ghcr.io/puppetehttps://prep-forge.onrender.comer/puppeteer:24.40.0
+FROM ghcr.io/puppeteer/puppeteer:24.40.0
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
