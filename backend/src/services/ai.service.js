@@ -191,4 +191,4 @@ async function generateResumePdf({ resume, jobDescription, selfDescription }) {
   return pdfBuffer;
 }
 
-module.exports = { generateInterviewReport, generateResumePdf };
+module.exports = { generateInterviewReport, generateResumePdf, ai };

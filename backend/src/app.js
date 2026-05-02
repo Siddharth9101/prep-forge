@@ -17,9 +17,12 @@ app.use(express.static("dist"));
 // route imports
 const authRouter = require("./routes/auth.routes");
 const interviewRouter = require("./routes/interview.routes");
+const analyseRouter = require("./routes/analyse.routes");
 
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/interview", interviewRouter);
+app.use("/api/v1/analyse", analyseRouter);
+
 
 module.exports = app;
