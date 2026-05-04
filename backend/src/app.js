@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["https://prep-forge-one.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+    origin: ["https://prep-forge-one.vercel.app", "http://localhost:5173", "http://localhost:5174", "https://ai-resume-builder-eight-rosy.vercel.app"],
     credentials: true,
   }),
 );
